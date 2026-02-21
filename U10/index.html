@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Aggregated Scores</title>
+  <link rel="icon" type="image/jpg" href="../alfilpitesti.jpg">
+  <title>Clasament U10</title>
   <style>
     :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#60a5fa;--win:#34d399}
     body{font-family:Inter,Segoe UI,system-ui,Arial;margin:0;background:linear-gradient(180deg,#071023,#0b1220);color:#e6eef6}
@@ -27,7 +28,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="nav"><a class="btn" href="Open.html">Clasament open</a><a class="btn" href="U10.html">Clasament U10</a><a class="btn" href="U14.html">Clasament U14</a></div>
+    <div class="nav"><a class="btn" href="../index.html">Clasament open</a><a class="btn" href="index.html">Clasament U10</a><a class="btn" href="../U14/index.html">Clasament U14</a></div>
     <h1>Clasament U10</h1>
     <div class="controls">
       <input id="search" class="search" placeholder="Caută după nume...">
@@ -67,7 +68,8 @@
     function compare(n,a,b,asc){
       if(n==='Points' || n==='Loc') return asc ? a-b : b-a;
       a = String(a).toLowerCase(); b = String(b).toLowerCase();
-      return asc ? (a>b?1:(a<b?-1:0)) : (b>a?1:(b<b?-1:0));
+      if(a === b) return 0;
+      return asc ? (a > b ? 1 : -1) : (a < b ? 1 : -1);
     }
     document.querySelectorAll('thead th').forEach(h=>{ let asc=true; h.addEventListener('click',()=>{ const col=h.dataset.col; const tbody=document.querySelector('#tbl tbody'); const rows=[...tbody.querySelectorAll('tr')]; rows.sort((r1,r2)=>{const a=r1.querySelector('[data-field="'+col+'"]')?.dataset.value; const b=r2.querySelector('[data-field="'+col+'"]')?.dataset.value; const na = (col==='Points' || col==='Loc')?parseFloat(a||0):a; const nb = (col==='Points' || col==='Loc')?parseFloat(b||0):b; return compare(col,na,nb,asc)}); asc = !asc; rows.forEach(r=>tbody.appendChild(r)); }) })
     // filter
